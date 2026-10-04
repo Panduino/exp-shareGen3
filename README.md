@@ -1,9 +1,34 @@
 # Balanced EXP Share
 
-Adds a party-wide catch-up EXP system to FireRed and LeafGreen.
+Keep the whole party moving without turning every battle into a flood of free experience.
 
-Pokémon that participate in battle keep their normal EXP. Healthy nonparticipants receive a smaller amount based on how far below the defeated Pokémon's level they are, up to 25%. Pokémon at the same level receive 10%, Pokémon above the opponent receive very little or none, and fainted Pokémon or Eggs receive no passive EXP.
+**Balanced EXP Share** adds a party-wide catch-up system to FireRed and LeafGreen. Pokémon that actually participate in battle still receive their normal experience, while healthy party members on the bench receive a smaller share based on how far behind the defeated Pokémon they are.
 
-Passive EXP does not grant EVs and is not boosted by Lucky Egg or the traded-Pokémon bonus. Trainer battles retain their normal EXP bonus.
+Lower-level teammates receive the most help. Pokémon near the opponent's level receive much less, and overleveled party members receive little or nothing. The result is an EXP Share designed to reduce grinding without constantly pushing your strongest Pokémon further ahead.
+
+## Features
+
+- Normal experience for Pokémon that participate in battle
+- Automatic catch-up experience for healthy nonparticipants
+- Larger shares for Pokémon that are falling behind
+- Little or no passive experience for overleveled Pokémon
+- Fainted Pokémon and Eggs receive no passive experience
+- Designed to work naturally alongside trainer level-scaling mods
+
+## Screenshots
+
+| Battle Results | Catch-Up EXP | Party Growth |
+| :---: | :---: | :---: |
+| _Screenshot coming soon_ | _Screenshot coming soon_ | _Screenshot coming soon_ |
+
+## How It Feels
+
+The system is intentionally conservative. Bench Pokémon can stay useful without constant switch-training, but participating in battle remains the fastest way to grow.
 
 The vanilla held Exp. Share distribution is replaced while this mod is active.
+
+## Installation
+
+Install **Balanced EXP Share** through G1R Deluxe's mod browser, or import the mod ZIP manually.
+
+No additional mods are required.
