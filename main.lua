@@ -22,12 +22,14 @@ return function(mod)
     return mon and (mon.isEgg == true or mon.egg == true)
   end
 
+  -- Passive awards should not amplify the trainer-scaling mod's high foe
+  -- levels into disproportionate catch-up gains.
   local function catchupRate(monLevel, foeLevel)
     local diff = (tonumber(foeLevel) or 1) - (tonumber(monLevel) or 1)
-    if diff >= 3 then return 0.25 end
-    if diff >= 1 then return 0.20 end
-    if diff == 0 then return 0.10 end
-    if diff >= -2 then return 0.05 end
+    if diff >= 3 then return 0.12 end
+    if diff >= 1 then return 0.08 end
+    if diff == 0 then return 0.04 end
+    if diff >= -2 then return 0.02 end
     return 0
   end
 
@@ -77,7 +79,7 @@ return function(mod)
     local foeSpecies = foe.species or (foeMon and (foeMon.species or foeMon.speciesId))
     local foeLevel = math.max(1, tonumber((foeMon and foeMon.level) or foe.level) or 1)
     local yield = Experience.expYield(foeSpecies)
-    local base = math.floor((tonumber(yield) or 0) * foeLevel / 7)
+    local base = math.floor((tonumber(yield) or 0) * math.min(foeLevel, 60) / 7)
     if base <= 0 then return awards end
 
     local participants = participantSet(st, foe)
@@ -96,9 +98,8 @@ return function(mod)
       then
         local rate = catchupRate(level, foeLevel)
         local amount = math.floor(base * rate)
-        if isTrainer and amount > 0 then
-          amount = math.floor(amount * 150 / 100)
-        end
+        -- No trainer bonus for passive EXP. The active battler still gets
+        -- the normal vanilla trainer award.
 
         if amount > 0 then
           -- Deliberately no EVs, Lucky Egg boost, or traded-Pokemon boost.
