@@ -1,17 +1,23 @@
 {
   "id": "balanced_exp_share_gen3",
   "name": "Balanced EXP Share",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "api": 2,
   "entry": "main.lua",
   "profile": "content",
   "category": "GAMEPLAY",
-  "games": ["firered", "leafgreen"],
+  "games": [
+    "firered",
+    "leafgreen",
+    "emerald"
+  ],
   "game_version": ">=0.3.14",
   "priority": 132,
-  "permissions": ["engine_internals"],
+  "permissions": [
+    "engine_internals"
+  ],
   "dependencies": [],
   "conflicts": [],
-  "description": "Adds balanced party-wide catch-up EXP while preserving normal EXP for Pokemon that participate in battle.",
+  "description": "Adds balanced party-wide catch-up EXP in FireRed, LeafGreen and Emerald.",
   "github": "Panduino/exp-shareGen3"
 }
