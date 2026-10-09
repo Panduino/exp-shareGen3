@@ -22,8 +22,8 @@ return function(mod)
     return mon and (mon.isEgg == true or mon.egg == true)
   end
 
-  -- Bench Pokemon receive half the normal foe EXP. Active battlers
-  -- receive half their vanilla award, preventing the lead from racing ahead.
+  -- Every eligible party member gets EXP based only on its level relative
+  -- to the rest of the party, never on whether it participated.
   local function participantSet(st, foe)
     local out = {}
     if foe and foe.participants and next(foe.participants) then
@@ -51,21 +51,12 @@ return function(mod)
       end
     end
 
+    -- Suppress vanilla EXP while retaining battle cleanup and awards.
+    -- EXP is distributed uniformly below, using one shared formula.
     local originalApply = Experience.apply
-    local participants = participantSet(st, foe)
-    local participantMons = {}
-    for pi in pairs(participants) do
-      local mon = (st and st.playerParty or {})[pi]
-      if mon then participantMons[mon] = true end
-    end
-
     Experience.apply = function(mon, amount, ...)
-      if participantMons[mon] then
-        amount = math.floor((tonumber(amount) or 0) * 0.5)
-      end
-      return originalApply(mon, amount, ...)
+      return originalApply(mon, 0, ...)
     end
-
     local ok, result = pcall(originalAwardFoe, st, foe, opts)
     Experience.apply = originalApply
 
@@ -89,21 +80,34 @@ return function(mod)
     local base = math.floor((tonumber(yield) or 0) * foeLevel / 7)
     if base <= 0 then return awards end
 
-    local participants = participantSet(st, foe)
     local isTrainer = opts and opts.trainer
     if isTrainer == nil then isTrainer = not st.wild end
     local friendshipCtx = { mapSec = Pokemon.currentMapSec(st.session) }
+
+    local lowest, highest = 100, 1
+    for _, mon in ipairs(st.playerParty or {}) do
+      if alive(mon) and not isEgg(mon) and (tonumber(mon.level) or 100) < Experience.MAX_LEVEL then
+        local level = tonumber(mon.level) or 1
+        lowest = math.min(lowest, level)
+        highest = math.max(highest, level)
+      end
+    end
 
     for pi = 1, 6 do
       local mon = (st.playerParty or {})[pi]
       local level = tonumber(mon and mon.level) or 1
       if mon
-        and not participants[pi]
         and alive(mon)
         and not isEgg(mon)
         and level < Experience.MAX_LEVEL
       then
-        local amount = math.floor(base * 0.5)
+        -- Lowest-level member gets 100% of base EXP, highest gets 15%.
+        -- Equal-level parties receive an identical 60% share each.
+        local rate = 0.60
+        if highest > lowest then
+          rate = 1.0 - 0.85 * (level - lowest) / (highest - lowest)
+        end
+        local amount = math.floor(base * rate)
         if isTrainer then amount = math.floor(amount * 1.5) end
 
         if amount > 0 then
