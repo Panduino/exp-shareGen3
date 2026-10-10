@@ -2,7 +2,7 @@
 
 Keep the whole party moving without turning every battle into a flood of free experience.
 
-**Balanced EXP Share** adds a party-wide catch-up system to FireRed and LeafGreen. Pokémon that actually participate in battle still receive their normal experience, while healthy party members on the bench receive a smaller share based on how far behind the defeated Pokémon they are.
+**Balanced EXP Share** adds a party-wide catch-up system to FireRed, LeafGreen, and Emerald. Pokémon that actually participate in battle still receive their normal experience, while healthy party members on the bench receive a smaller share based on how far behind the defeated Pokémon they are.
 
 Lower-level teammates receive the most help. Pokémon near the opponent's level receive much less, and overleveled party members receive little or nothing. The result is an EXP Share designed to reduce grinding without constantly pushing your strongest Pokémon further ahead.
 
@@ -14,12 +14,6 @@ Lower-level teammates receive the most help. Pokémon near the opponent's level 
 - Little or no passive experience for overleveled Pokémon
 - Fainted Pokémon and Eggs receive no passive experience
 - Designed to work naturally alongside trainer level-scaling mods
-
-## Screenshots
-
-| Battle Results | Catch-Up EXP | Party Growth |
-| :---: | :---: | :---: |
-| _Screenshot coming soon_ | _Screenshot coming soon_ | _Screenshot coming soon_ |
 
 ## How It Feels
 
